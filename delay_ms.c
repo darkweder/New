@@ -1,0 +1,12 @@
+#include "stm32f10x.h"
+#include "delay_ms.h"
+
+
+SET_BIT(RCC->APB2ENR, RCC_APB2ENR_AFIOEN);
+		tmpreg = READ_BIT(RCC->APB2ENR, RCC_APB2ENR_AFIOEN);
+		CLEAR_BIT(AFIO->MAPR,AFIO_MAPR_SWJ_CFG);
+		SET_BIT(AFIO->MAPR, AFIO_MAPR_SWJ_CFG_JTAGDISABLE);
+		SetSysClockTo72();
+		SysTick_Init();	
+RCC_DeInit();
+
